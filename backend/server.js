@@ -165,7 +165,7 @@ app.post('/api/submit-order', (req, res) => {
 
 // Ruta comodín para servir la aplicación de frontend
 // Cualquier petición GET que no coincida con una ruta de API anterior, servirá el index.html
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
