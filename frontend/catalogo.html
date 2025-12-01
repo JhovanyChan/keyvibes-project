@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - KeyVibes</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-title-header {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        .page-title-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        /* Styles for the detail modal images */
+        .modal-designs {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        .modal-designs img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border: 2px solid #eee;
+            border-radius: 5px;
+        }
+        .modal-qr-code {
+            display: block;
+            margin: 1.5rem auto 0 auto;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html">KeyVibes</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="personalizar.html">Personalizar</a></li>
+                <li><a href="index.html#contact-section">Contacto</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-title-header">
+        <h1>Catálogo con Canción</h1>
+        <p>Explora nuestros diseños exclusivos, cada uno con una canción que te encantará.</p>
+    </div>
+
+    <main>
+        <section id="catalog-section">
+            <div id="product-catalog" class="product-grid">
+                <!-- Los productos se cargarán aquí desde catalogo.js -->
+                <p>Cargando productos...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 KeyVibes. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Modal para detalles del producto -->
+    <div id="detail-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="modal-body">
+                <!-- El contenido del detalle del producto se cargará aquí -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/nav.js"></script>
+    <script src="js/catalogo.js"></script>
+</body>
+</html>

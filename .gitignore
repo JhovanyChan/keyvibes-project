@@ -1,0 +1,5 @@
+# Ignorar la carpeta de dependencias de Node.js en el backend
+backend/node_modules/
+
+# Ignorar archivos de variables de entorno que puedan contener secretos
+.env

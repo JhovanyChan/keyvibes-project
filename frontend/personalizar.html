@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personaliza tu Llavero - KeyVibes</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-title-header {
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+        .page-title-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html">KeyVibes</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="personalizar.html">Personalizar</a></li>
+                <li><a href="index.html#contact-section">Contacto</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-title-header">
+        <h1>Personaliza tu Llavero</h1>
+        <p>Elige tu modelo, danos tu canción y nosotros hacemos el resto.</p>
+    </div>
+
+    <main>
+        <section id="custom-section">
+            <h2>1. Elige un modelo de llavero</h2>
+            <div id="custom-product-grid" class="product-grid">
+                <!-- Llaveros personalizables se cargarán aquí -->
+                <p>Cargando modelos...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 KeyVibes. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Modal para personalizar y generar QR -->
+    <div id="custom-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="custom-modal-body">
+                <h3 id="custom-modal-title">Personalizar Llavero</h3>
+                
+                <h4>2. Agrega tu canción</h4>
+                <p>Pega el enlace de tu canción de Spotify, YouTube, Apple Music, etc.</p>
+                
+                <div class="generator-container">
+                    <input type="text" id="song-url-input" placeholder="Pega el enlace aquí">
+                    <button id="generate-qr-btn">Generar QR</button>
+                </div>
+
+                <div id="qr-result-container" style="text-align: center; margin-top: 1.5rem;">
+                    <!-- El QR generado y el botón de envío aparecerán aquí -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/nav.js"></script>
+    <script src="js/personalizar.js"></script>
+</body>
+</html>

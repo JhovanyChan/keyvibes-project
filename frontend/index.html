@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyVibes - Recuerdos que suenan</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Specific styles for the home page */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/banner.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 6rem 1rem;
+            border-radius: 10px;
+            margin-top: 2rem; /* Adjust for fixed nav */
+        }
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .description-section {
+            text-align: center;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+        .home-nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .home-nav-buttons .btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .home-nav-buttons .btn:hover {
+            transform: translateY(-3px);
+            background-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html">
+                    <img src="images/logo.png" alt="KeyVibes Logo" style="height: 50px;">
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="personalizar.html">Personalizar</a></li>
+                <li><a href="#contact-section">Contacto</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Recuerdos que suenan</h2>
+            <p>El regalo perfecto para llevar esa canción especial a todos lados.</p>
+            <div class="home-nav-buttons">
+                <a href="catalogo.html" class="btn">Ver Catálogo</a>
+                <a href="personalizar.html" class="btn">Personaliza tu Llavero</a>
+            </div>
+        </section>
+
+        <section class="description-section">
+            <h2>¿Qué es KeyVibes?</h2>
+            <p>
+                En KeyVibes, transformamos tu canción favorita en un recuerdo tangible. Creamos llaveros personalizados de alta calidad con un código QR único que, al escanearlo, reproduce esa melodía que tanto significa para ti. Es más que un llavero, es una experiencia.
+            </p>
+        </section>
+
+        <hr>
+
+        <section id="contact-section">
+            <h2>Contacto</h2>
+            <p>¿Tienes alguna pregunta o un pedido especial? ¡Contáctanos!</p>
+            <p><strong>Email:</strong> jhovanyazcorra14@gmail.com</p>
+            <p><strong>Redes Sociales:</strong> @KeyVibes</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 KeyVibes. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/nav.js"></script>
+</body>
+</html>
