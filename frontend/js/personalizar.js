@@ -1,6 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    const apiBaseUrl = 'http://localhost:3001';
+    const apiBaseUrl = '';
 
     // --- DOM Elements ---
     const customProductGrid = document.getElementById('custom-product-grid');
