@@ -6,14 +6,80 @@
     <title>KeyVibes - Recuerdos que suenan</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
+        /* --- INICIO DEL ESTILO DEL FONDO --- */
+        body {
+            background-color: #000; /* Match the shader background base */
+        }
+
+        .shader-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: #000000;
+        }
+
+        .grain-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            z-index: 1;
+            pointer-events: none;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+            filter: contrast(120%) brightness(100%);
+        }
+
+        .blobs-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120vw;
+            height: 120vh;
+            filter: blur(100px);
+            z-index: 0;
+            animation: rotateBackground 20s linear infinite;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            mix-blend-mode: screen;
+            animation: blobMove 12s ease-in-out infinite alternate;
+        }
+
+        .blob-1 { background: #809bd6; width: 50vw; height: 50vw; top: 0%; left: 10%; animation-delay: 0s; }
+        .blob-2 { background: #910aff; width: 60vw; height: 60vw; bottom: 0%; right: 0%; animation-delay: -3s; }
+        .blob-3 { background: #af38ff; width: 40vw; height: 40vw; bottom: 20%; left: 20%; animation-delay: -6s; }
+
+        @keyframes rotateBackground {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes blobMove {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(5%, -5%) scale(1.1); }
+            66% { transform: translate(-5%, 5%) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        /* --- FIN DEL ESTILO DEL FONDO --- */
+
         /* Specific styles for the home page */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/banner.jpg') no-repeat center center/cover;
+            background: transparent;
             color: white;
             text-align: center;
             padding: 6rem 1rem;
             border-radius: 10px;
-            margin-top: 2rem; /* Adjust for fixed nav */
+            margin-top: 2rem;
         }
         .hero h2 {
             font-size: 3rem;
@@ -24,12 +90,28 @@
         .hero p {
             font-size: 1.5rem;
             margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.85);
         }
-        .description-section {
+
+        .description-section, #contact-section {
+            background: rgba(10, 5, 20, 0.5);
+            backdrop-filter: blur(12px) saturate(150%);
+            -webkit-backdrop-filter: blur(12px) saturate(150%);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
             text-align: center;
             max-width: 800px;
             margin: 3rem auto;
         }
+        
+        .description-section h2, #contact-section h2 {
+            color: white;
+        }
+        .description-section p, #contact-section p {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
         .home-nav-buttons {
             display: flex;
             justify-content: center;
@@ -51,30 +133,80 @@
             transform: translateY(-3px);
             background-color: var(--secondary-color);
         }
+
+        /* --- Contact Form Styles --- */
+        #contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            max-width: 600px;
+            margin: 1rem auto;
+            text-align: left;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .form-group input,
+        .form-group textarea {
+            padding: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+        #contact-form button {
+            background: var(--primary-color);
+            cursor: pointer;
+            margin-top: 0.5rem;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+        #form-status {
+            text-align: center;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            min-height: 1.5rem;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <nav class="navbar">
-            <div class="nav-logo">
-                <a href="index.html">
-                    <img src="images/logo.png" alt="KeyVibes Logo" style="height: 50px;">
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="catalogo.html">Catálogo</a></li>
-                <li><a href="personalizar.html">Personalizar</a></li>
-                <li><a href="#contact-section">Contacto</a></li>
-            </ul>
-            <div class="hamburger">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-            </div>
-        </nav>
-    </header>
+    <div class="shader-background">
+        <div class="grain-overlay"></div>
+        <div class="blobs-container">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="catalogo.html">Catálogo</a></li>
+            <li><a href="personalizar.html">Personalizar</a></li>
+            <li><a href="#contact-section">Contacto</a></li>
+        </ul>
+        <div class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
 
     <main>
         <section class="hero">
@@ -93,20 +225,72 @@
             </p>
         </section>
 
-        <hr>
+        <hr style="border-color: rgba(255, 255, 255, 0.1);">
 
         <section id="contact-section">
             <h2>Contacto</h2>
-            <p>¿Tienes alguna pregunta o un pedido especial? ¡Contáctanos!</p>
-            <p><strong>Email:</strong> jhovanyazcorra14@gmail.com</p>
-            <p><strong>Redes Sociales:</strong> @KeyVibes</p>
+            <p>¿Tienes alguna pregunta o un pedido especial? Rellena el formulario.</p>
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Tu Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+            <div id="form-status"></div>
         </section>
     </main>
 
-    <footer>
+    <footer style="color: rgba(255, 255, 255, 0.7);">
         <p>&copy; 2025 KeyVibes. Todos los derechos reservados.</p>
     </footer>
 
     <script src="js/nav.js"></script>
+    <script>
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            formStatus.textContent = 'Enviando...';
+            formStatus.style.color = 'white';
+
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    formStatus.textContent = '¡Mensaje enviado con éxito!';
+                    formStatus.style.color = '#4CAF50'; // Green
+                    contactForm.reset();
+                } else {
+                    formStatus.textContent = `Error: ${result.error || 'No se pudo enviar el mensaje.'}`;
+                    formStatus.style.color = '#F44336'; // Red
+                }
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                formStatus.textContent = 'Error de conexión. Inténtalo de nuevo.';
+                formStatus.style.color = '#F44336'; // Red
+            }
+        });
+    </script>
 </body>
 </html>

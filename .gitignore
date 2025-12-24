@@ -3,3 +3,4 @@ backend/node_modules/
 
 # Ignorar archivos de variables de entorno que puedan contener secretos
 .env
+backend/.env

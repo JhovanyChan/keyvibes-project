@@ -22,11 +22,13 @@ body {
 
 /* --- Navigation Bar --- */
 .navbar {
-    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    background: rgba(10, 5, 20, 0.55); /* Glassy background */
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
     color: white;
     padding: 0 2rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end; /* Pushes nav links to the right */
     align-items: center;
     height: 80px;
     position: fixed; /* Make navbar fixed at the top */
@@ -34,7 +36,7 @@ body {
     left: 0;
     right: 0;
     z-index: 2000;
-    box-shadow: 0 2px 10px var(--shadow-color);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
 }
 
 .nav-logo a {
