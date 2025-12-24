@@ -109,6 +109,6 @@ app.listen(PORT, () => {
 });
 
 // --- Fallback Route ---
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
     res.sendFile(path.join(frontendPath, 'index.html'));
 });
