@@ -1,9 +1,9 @@
-require('dotenv').config(); // To load environment variables from .env file
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const qrcode = require('qrcode');
 const path = require('path');
-const nodemailer = require('nodemailer'); // For sending emails
+const sgMail = require('@sendgrid/mail'); // Use SendGrid
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,24 +15,9 @@ app.use(express.json());
 const frontendPath = path.join(__dirname, '..', 'frontend');
 app.use(express.static(frontendPath));
 
-// --- Nodemailer Transporter Setup ---
-// This transporter uses the credentials from your .env file
-const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
-});
-
-// Verify transporter configuration
-transporter.verify((error, success) => {
-    if (error) {
-        console.error('Error with email transporter configuration:', error);
-    } else {
-        console.log('Email transporter is ready to send messages');
-    }
-});
+// --- SendGrid Setup ---
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+console.log('SendGrid API Key configured.');
 
 
 // --- Mock Databases ---
@@ -77,29 +62,34 @@ app.post('/api/submit-order', (req, res) => {
     res.status(200).json({ message: '¡Solicitud recibida con éxito!' });
 });
 
-// --- NEW: Contact Form Endpoint ---
-app.post('/api/contact', (req, res) => {
+// --- UPDATED: Contact Form Endpoint using SendGrid ---
+app.post('/api/contact', async (req, res) => {
     const { name, email, message } = req.body;
 
     if (!name || !email || !message) {
         return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
     }
 
-    const mailOptions = {
-        from: `"${name}" <${email}>`, // Sender address
-        to: 'jhovanyazcorra14@gmail.com', // Your receiving email address
+    const msg = {
+        to: 'jhovanyazcorra14@gmail.com', // Your receiving email
+        from: process.env.FROM_EMAIL, // The "Single Sender" you verified in SendGrid
         subject: `Nuevo Mensaje de Contacto de ${name}`,
-        text: `Has recibido un nuevo mensaje desde el formulario de contacto de tu web.\n\nNombre: ${name}\nEmail: ${email}\nMensaje:\n${message}`,
-        replyTo: email
+        text: `Has recibido un nuevo mensaje.\n\nNombre: ${name}\nEmail: ${email}\nMensaje:\n${message}`,
+        html: `<strong>Has recibido un nuevo mensaje.</strong><p><strong>Nombre:</strong> ${name}</p><p><strong>Email:</strong> ${email}</p><p><strong>Mensaje:</strong></p><p>${message}</p>`,
+        replyTo: email, // So you can reply directly to the user
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error('Error sending email:', error);
-            return res.status(500).json({ error: 'Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.' });
-        }
+    try {
+        await sgMail.send(msg);
+        console.log('Contact form email sent successfully via SendGrid.');
         res.status(200).json({ message: '¡Mensaje enviado con éxito!' });
-    });
+    } catch (error) {
+        console.error('Error sending email with SendGrid:', error);
+        if (error.response) {
+            console.error(error.response.body)
+        }
+        res.status(500).json({ error: 'Hubo un error al enviar el mensaje.' });
+    }
 });
 
 
